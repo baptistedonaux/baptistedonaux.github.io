@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<title>Docker - par Baptiste Donaux & Wanadev</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/docker.css" id="theme">
+		<link href="css/font-awesome.min.css" rel="stylesheet">
+
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Docker</h1>
+					<h3>À la découverte des baleines</h3>
+					<p>
+						<small>Créé par <a href="http://www.baptiste-donaux.fr">Baptiste Donaux</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Baptiste Donaux</h2>
+					<p>
+						<ul>
+							<li>
+								Développeur Symfony chez Wanadev
+							</li>
+							<li>
+								<a href="http://www.wanadev.fr">www.wanadev.fr</a>
+							</li>
+							<li>
+								<a href="http://www.baptiste-donaux.fr">www.baptiste-donaux.fr</a>
+							</li>
+							<li>
+								@baptistedonaux
+							</li>
+							<li>
+								bdonaux@wanadev.fr
+							</li>
+							<li>
+								baptistedonaux
+							</li>
+						</ul>
+					</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Sommaire</h2>
+						<p>
+							<ul>
+								<li data-fragment-index="0" class="fragment">Comprendre une baleine</li>
+								<li data-fragment-index="1" class="fragment">Vivre avec une baleine</li>
+								<li data-fragment-index="2" class="fragment">Commander une baleine</li>
+								<li data-fragment-index="3" class="fragment">Déployer avec une baleine</li>
+							</ul>
+						</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Comprendre une baleine</h2>
+					</section>
+					<section>
+						<h3>Présentation</h3>
+						<p>
+							<ul>
+								<li>Docker est développé par Docker Inc.</li>
+								<li>Créé par deux français dont Solomon Hykes</li>
+								<li>Dévoilé en mars 2013</li>
+							</ul>
+						</p>
+					</section>
+					<section>
+						<h3>Qu'est-ce que Docker ?</h3>
+						<p>
+							<ul>
+								<li>Une API (RESTFul) haut niveau permettant de coordonner des opérations bas niveau</li>
+								<li>Une solution pour isoler des environnements</li>
+								<li>Un produit destiné à Linux</li>
+								<li>Un produit qui repose sur trois </li>
+							</ul>
+						</p>
+					</section>
+					<section>
+						<h3>Qu'est-ce que Docker n'est pas ?</h3>
+						<p>
+							<ul>
+								<li>Ce n'est pas une machine virtuelle</li>
+								<li>Lourd</li>
+							</ul>
+						</p>
+					</section>
+					<section>
+						<h3>Comment fonctionne Docker ?</h3>
+						<p>
+							La technologie repose sur trois composants.<br/>
+							<ul>
+								<li>Le système de container Linux LXC</li>
+								<li>cgroups</li>
+								<li>Le Kernel Linux</li>
+							</ul>
+						</p>
+					</section>
+					<section>
+						<h3>Comment fonctionne Docker ?</h3>
+						<p>
+							<h4>Objectif des LXC</h4>
+							<p>
+								LXC signifie Linux Containers.<br/>
+								C'est un système de virtualisation, utilisant l'isolation comme méthode de cloisonnement au niveau du système d'exploitation. <br/>(source : <a href="http://fr.wikipedia.org/wiki/LXC">fr.wikipedia.org</a>)
+							</p>
+						</p>
+					</section>
+					<section>
+						<h3>Comment fonctionne Docker ?</h3>
+						<p>
+							<h4>cgroups</h4>
+							<p>
+								cgroups (control groups) est une fonctionnalité du noyau Linux pour limiter, compter et isoler l'utilisation des ressources (processeur, mémoire, utilisation disque, etc.). <br/>(source : <a href="http://fr.wikipedia.org/wiki/Cgroups">fr.wikipedia.org</a>)
+							</p>
+						</p>
+					</section>
+					<section>
+						<h3>Comment fonctionne Docker ?</h3>
+						<p>
+							<h4>Linux… of course !</h4>
+							<p>
+								<img src="http://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png">
+							</p>
+						</p>
+					</section>
+					<section>
+						<h3>Docker pour quel plateforme ?</h3>
+						<p>
+							Docker utilise Linux et ses fonctionnalités. Docker est donc uniquement compatible avec Linux. D'ailleurs il lui est destiné.
+						</p>
+						<p data-fragment-index="0" class="fragment">
+							Il requiert un Kernel 3.8+. Un fallback a été mis en place pour Debian 7.
+						</p>
+					</section>
+					<section>
+						<h3>Docker pour quel plateforme ?</h3>
+                        	<p>
+                        		Pour utiliser Docker sur un Mac ou Windows, vous pouvez utiliser une des VMs mise à disposition comme <strong><a href="https://github.com/boot2docker/boot2docker">boot2docker</a></strong>. Celle-ci est soutenu par Docker Inc., repose sur VirtualBox. Elle est très légère (~ 24 Mo) et démarre rapidement (~ 5/10 secondes). Elle embarque un Linux dans lequel vous pourrez ensuite exécuter un nombre illimité de containers.
+                        	</p>
+                    		<p data-fragment-index="0" class="fragment">
+                    			ATTENTION ! Des problèmes non liés à Docker peuvent être levé par l'utilisation de ces VMs.
+                    		</p>
+						<p>
+							
+						</p>
+					</section>
+					<section>
+						<h3>Pourquoi utiliser Docker ?</h3>
+						<p>
+							<ul>
+								<li data-fragment-index="0" class="fragment">Unifier les environnements de développement</li>
+								<li data-fragment-index="1" class="fragment">Exécuter une application dans un environnement sain</li>
+								<li data-fragment-index="2" class="fragment">Travailler dans les conditions similaires à l'environnement final</li>
+								<li data-fragment-index="3" class="fragment">Déployer ses applications</li>
+							</ul>
+						</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Vivre avec une baleine</h2>
+					</section>
+
+					<section>
+						<h2>L'art de vous simplifier la vie</h2>
+
+						<p>
+							Une API haut niveau permettant de manager des instructions bas niveau
+						</p>
+					</section>
+
+					<section>
+						<h2>L'art de vous simplifier la vie</h2>
+
+						<p>
+							<img src="images/docker-cli-commands.png">
+						</p>
+					</section>
+
+					<section>
+						<h2>Quelques rappels avent de commencer</h2>
+
+						<p>
+							Docker vous donne la possibilité de gérer :
+							<ul>
+								<li>des images</li>
+								<li>des containers</li>
+							</ul>
+						</p>
+					</section>
+
+					<section>
+						<h2>Quelques rappels avent de commencer</h2>
+
+						<p>
+							Mais dans Docker, tout est container ! :-/
+							<br/><br/>
+							<span data-fragment-index="0" class="fragment">Voyez donc plutôt :</span>
+							<ul data-fragment-index="0" class="fragment">
+								<li>image = modèle de container (<strong>statique</strong>)</li>
+								<li>container = container pouvant vivre et être "exécuté" (<strong>dynamique</strong>)</li>
+							</ul>
+						</p>
+					</section>
+
+					<section>
+						<h2>Gestion des images</h2>
+
+						<p>
+							Dans une image, vous allez installer des services, qui seront exécutés dans un autre container de manière à le garder intact.
+						</p>
+					</section>
+
+					<section>
+						<h2>Gestion des images</h2>
+						<h4>Comment récupérer une image ?</h4>
+
+						<p>
+							Il existe le <strong><a href="https://registry.hub.docker.com/">Docker Hub Registry</a></strong> pour :
+							<ul>
+								<li><i>pusher</i></li>
+								<li><i>puller</i></li>
+								<li><i>rechercher des images</i></li>
+							</ul>
+							<br/><br/>Dépôt gérer par Docker
+						</p>
+					</section>
+
+					<section>
+						<h2>Gestion des images</h2>
+						<h4>Comment récupérer une image ?</h4>
+
+						<p>
+							<pre>$ docker search --stars=10 debian
+<strong>NAME            DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED</strong>
+debian          (Semi) Official Debian base image.              248       [OK]       
+google/debian                                                   25                   [OK]
+tianon/debian   use "debian" instead - https://index.docke...   13</pre>
+						
+							<pre data-fragment-index="0" class="fragment">$ docker pull debian</pre>
+							<pre data-fragment-index="1" class="fragment">$ docker images
+<strong>REPOSITORY    TAG          IMAGE ID          CREATED            VIRTUAL SIZE</strong>
+debian        7            f6fab3b798be      4 weeks ago         85.1 MB
+debian        latest       f6fab3b798be      4 weeks ago         85.1 MB
+debian        wheezy       f6fab3b798be      4 weeks ago         85.1 MB
+debian        6            1910f8f05f99      4 weeks ago         78.5 MB
+debian        stable       2cf366ad6d47      8 weeks ago         85.19 MB
+debian        7.5          06af7ad6cff1      5 months ago        85.18 MB</pre>
+						</p>
+					</section>
+
+					<section>
+						<h2>Gestion des images</h2>
+						<h4>Comment créer une image ?</h4>
+
+						<p>
+							Deux méthodes
+							<ul>
+								<li class="fragment" data-fragment-index="0">
+									Dockerfile <span class="fragment" data-fragment-index="2"> : plus conventionnel</span>
+								</li>
+								<li class="fragment" data-fragment-index="1">
+									<i>docker-commit</i> <span class="fragment" data-fragment-index="3"> : permet de garder un état</span>
+								</li>
+							</ul>
+						</p>
+					</section>
+
+					<section>
+						<h2>Gestion des images</h2>
+						<h4>Comment créer une image avec un Dockerfile ?</h4>
+
+						<p>
+							Fichier contenant des instructions et des méta-datas.
+						</p>
+					</section>
+
+					<section>
+						<h2>Gestion des images</h2>
+						<h4>Comment créer une image avec un Dockerfile ?</h4>
+						
+						<img src="images/dockerfile.png">
+					</section>
+
+					<section>
+						<h2>Gestion des images</h2>
+						<h4>Comment créer une image avec un Dockerfile ?</h4>
+						
+						<p>
+							Et maintenant, on build !
+							<pre class="fragment" data-fragment-index="0">$ docker build .</pre>
+							<pre class="fragment" data-fragment-index="1">$ docker images</pre>
+							<span class="fragment" data-fragment-index="2">Pas mal, mais pas de nom à mon image…</span>
+							<pre class="fragment" data-fragment-index="4">$ docker build -t monImage[:monTag] .</pre>
+						</p>
+					</section>
+
+					<section>
+						<h2>Gestion des images</h2>
+						<h4>Le cache et la construction d'image</h4>
+						
+						<p>
+							<p data-fragment-index="0" class="fragment">Lorsqu'on <i>rebuild</i> une image, Docker utilise du cache.<br/></p>
+							<p data-fragment-index="0" class="fragment">Il réutilise les étapes déjà faites qui n'ont pas changées.<br/><br/></p>
+
+							<p data-fragment-index="1" class="fragment">Chaque étape (instruction Dockerfile), est mise dans un container.<br/><br/>Lorsque vous rebuildez l'image, Dockerfile repars du dernier container intermédiaire qui n'a pas changée.</p>
+						</p>
+					</section>
+
+					<section>
+						<h2>Gestion des containers</h2>
+
+						<p>
+							Un container va vivre et contenir les différences avec l'image de base.
+						</p>
+					</section>
+
+					<section>
+						<h2>Gestion des containers</h2>
+						<h4>Lancer un container</h4>
+
+						<p>
+							<pre>$ docker run debian:wheezy bash</pre>
+							<p data-fragment-index="1" class="fragment">Va s'arrêter immédiatement car la console n'a pas été attachée</p>
+							<pre data-fragment-index="2" class="fragment">$ docker run --tty --interactive debian:wheezy bash</pre>
+						</p>
+					</section>
+
+					<section>
+						<h2>Gestion des containers</h2>
+						<h4>Comment fonctionne docker-run ?</h4>
+
+						<p>
+							<pre>$ docker create --tty --interactive debian:wheezy bash</pre>
+							<pre data-fragment-index="0" class="fragment">$ docker start <i>name_of_container</i></pre>
+						</p>
+					</section>
+
+					<section>
+						<h2>Gestion des containers</h2>
+						<h4>Comment fonctionne docker-run ?</h4>
+
+						<p>
+							<i>docker-create</i> va créer un container à partir d'une image et lui donné un nom. Celui-ci sera toujours disponible.
+							<pre>$ docker ps -a     # pour voir tous les containers (lancé ou non)</pre>
+						</p>
+					</section>
+
+					<section>
+						<h2>Gestion des containers</h2>
+						<h4>Utiliser et ré-utiliser ses containers</h4>
+
+						<p>
+							<i>Best Practices</i>
+							<pre data-fragment-index="0" class="fragment">$ docker build -t monImage <i>/path/</i></pre>
+							<pre data-fragment-index="1" class="fragment">$ docker create --tty --interactive -p 80:80 --name="containerName" monImage bash</pre>
+							<pre data-fragment-index="2" class="fragment">$ docker start containerName</pre>
+							<pre data-fragment-index="3" class="fragment">$ docker stop containerName</pre>
+							<p data-fragment-index="4" class="fragment">Pas de perte de données, pas de réinitialisation des données.</p>
+						</p>
+					</section>
+				</section>
+
+					<section>
+						<h2>Commander une baleine</h2>
+					</section>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
