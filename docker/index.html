@@ -397,8 +397,78 @@ debian        7.5          06af7ad6cff1      5 months ago        85.18 MB</pre>
 					</section>
 				</section>
 
+				<section>
 					<section>
 						<h2>Commander une baleine</h2>
+					</section>
+
+					<section>
+						<h2>Prenez le contrôle</h2>
+
+						<p>
+							Docker, pas 1, mais 2 parties !
+							<ul>
+								<li class="fragment" data-fragment-index="0">client</li>
+								<li class="fragment" data-fragment-index="1">serveur / <i>core</i> ou <i>engine</i></li>
+							</ul>
+						</p>
+					</section>
+
+					<section>
+						<h2>Prenez le contrôle</h2>
+
+						<p>
+							Une API RESTFul qui répond à notre <i>docker-cli</i>.
+							Par conséquent, un <i>daemon</i> appelable par n'importe quelle application.
+						</p>
+
+						<p class="fragment" data-fragment-index="0">
+							Le serveur contactable via une IP et un port ou via une Socket.
+							<pre class="fragment" data-fragment-index="0">tcp://<i>ip</i>:<i>port</i></pre>
+							<pre class="fragment" data-fragment-index="0">unix:///run/docker.sock</pre>
+						</p>
+					</section>
+
+					<section>
+						<h2>Commander <span style="text-decoration: line-through;">une</span> des baleines !</h2>
+
+						<p>
+							Cela donne la possibilité de gérer un cluster de baleines !
+						</p>
+
+						<p class="fragment" data-fragment-index="0">
+							Lancer le <i>core</i> de chaque serveur de manière à écouter sur une plage d'<strong>IP</strong> et un <strong>port</strong>.
+						</p>
+
+						<p class="fragment" data-fragment-index="1">
+							Possibilité de gérer plusieurs machines depuis un unique point.
+						</p>
+					</section>
+
+					<section>
+						<h2>docker-cli et une machine distante</h2>
+
+						<p>
+							<img src="images/docker-cli-commands-2.png">
+						</p>
+					</section>
+
+					<section>
+						<h2>docker-cli et une machine distantes</h2>
+
+						<p>
+							<i>--host</i> permet de gérer plusieurs machines
+						</p>
+					</section>
+
+					<section>
+						<h2>Documentation</h2>
+
+						<p>
+							L'API reprend les commandes détaillés dans les parties précédentes.
+
+							<a href="https://docs.docker.com/reference/api/docker_remote_api/">Elle est disponible sur le site officiel.</a>
+						</p>
 					</section>
 				</section>
 			</div>
