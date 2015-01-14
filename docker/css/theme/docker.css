@@ -155,3 +155,9 @@ body {
 .reveal pre {
   box-shadow: none;
 }
+
+.reveal i.fa {
+  font-family: "FontAwesome";
+  font-style: normal;
+  color: #005976;
+}

@@ -15,17 +15,18 @@
 
 		<link rel="stylesheet" href="css/reveal.min.css">
 		<link rel="stylesheet" href="css/theme/docker.css" id="theme">
-		<link href="css/font-awesome.min.css" rel="stylesheet">
 
 		<link rel="stylesheet" href="lib/css/zenburn.css">
 
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
 		<script>
 			if( window.location.search.match( /print-pdf/gi ) ) {
-				var link = document.createElement( 'link' );
+				var link = document.createElement('link');
 				link.rel = 'stylesheet';
 				link.type = 'text/css';
 				link.href = 'css/print/pdf.css';
-				document.getElementsByTagName( 'head' )[0].appendChild( link );
+				document.getElementsByTagName('head')[0].appendChild(link);
 			}
 		</script>
 
@@ -53,19 +54,19 @@
 								Développeur Symfony chez Wanadev
 							</li>
 							<li>
-								<a target="_blank" href="http://www.wanadev.fr">www.wanadev.fr</a>
+								<a target="_blank" href="http://www.wanadev.fr"><i class="fa fa-globe"></i> www.wanadev.fr</a>
 							</li>
 							<li>
-								<a target="_blank" href="http://www.baptiste-donaux.fr">www.baptiste-donaux.fr</a>
+								<a target="_blank" href="http://www.baptiste-donaux.fr"><i class="fa fa-globe"></i> www.baptiste-donaux.fr</a>
 							</li>
 							<li>
-								@baptistedonaux
+								<a href="https://twitter.com/baptistedonaux"><i class="fa fa-twitter"></i> @baptistedonaux</a>
 							</li>
 							<li>
-								bdonaux@wanadev.fr
+								<a href="mailto:baptiste.donaux@gmail.com"><i class="fa fa-send"></i> baptiste.donaux@gmail.com</a>
 							</li>
 							<li>
-								baptistedonaux
+								<a href="https://github.com/baptistedonaux"><i class="fa fa-github"></i> baptistedonaux</a>
 							</li>
 						</ul>
 					</p>
@@ -468,6 +469,179 @@ debian        7.5          06af7ad6cff1      5 months ago        85.18 MB</pre>
 							L'API reprend les commandes détaillés dans les parties précédentes.
 
 							<a target="_blank" href="https://docs.docker.com/reference/api/docker_remote_api/">Elle est disponible sur le site officiel.</a>
+						</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Déployer avec une baleine</h2>
+					</section>
+
+					<section>
+						<h2>Déployer avec une baleine</h2>
+
+						<p>
+							<h4>Docker en bref</h4>
+							<ul>
+								<li class="fragment" data-fragment-index="0">Docker permet d'isoler des processus.</li>
+								<li class="fragment" data-fragment-index="1">1 processus par container conseillé</li>
+								<li class="fragment" data-fragment-index="2">Associer des containers pour exécuter une application</li>
+							</ul>
+						</p>
+					</section>
+
+					<section>
+						<h2>Déployer avec une baleine</h2>
+
+						<p>
+							<h4>Quels avantages d'éclater son application ?</h4>
+							<ul>
+								<li class="fragment" data-fragment-index="0">Redémarrer un container, redémarre un service et donc un PID</li>
+								<li class="fragment" data-fragment-index="1">Un processus qui quitterait d'une manière inopiné pourrait être automatiquement relancé si l'option <i>always</i> a été configurée.</li>
+								<li class="fragment" data-fragment-index="2">Le lancement d'un container supplémentaire pour un service donnée permettrait de jouer facilement sur la repartition de charge (<i>load balancor</i>).</li>
+								<li class="fragment" data-fragment-index="3">Élasticité de la plateforme.</li>
+							</ul>
+						</p>
+					</section>
+
+					<section>
+						<h2>Déployer avec une baleine</h2>
+
+						<p>
+							<h4>Quels inconvénients d'éclater son application ?</h4>
+							<ul>
+								<li class="fragment" data-fragment-index="0">Pas toujours facile de construire des services <i>mono-process</i> pour un projet donné</li>
+								<li class="fragment" data-fragment-index="1">Demande une plus grande attention pour les déploiements</li>
+							</ul>
+						</p>
+					</section>
+
+					<section>
+						<h2>Déployer avec une baleine</h2>
+
+						<p>
+							<h4>Exemple</h4>
+							Pour application Symfony standard, on aurait trois containers :
+							<ul>
+								<li>Nginx</li>
+								<li>HHVM</li>
+								<li>MongoDB</li>
+							</ul>
+						</p>
+					</section>
+
+					<section>
+						<h2>Déployer avec une baleine</h2>
+
+						<p>
+							<h4>Facilitons ces étapes</h4>
+							En novembre 2014, Docker annonce deux vainqueurs de leur <a href="http://blog.docker.com/2014/11/announcing-docker-global-hack-day-2-winners/" target="_blank">hackathlon</a> pour le produit Fig.
+						</p>
+						<br/>
+
+						<p>
+							<h4>Qu'est-ce que Fig ?</h4>
+							Déployer des containers facilement (services) grâce à un unique outil.
+						</p>
+					</section>
+
+					<section>
+						<h2>Déployer avec une baleine</h2>
+
+						<p>
+							<h4>Faciliter les déploiements avec Fig</h4>
+							<ul>
+								<li>Déclaration des services (nom des containers utilisés via Fig) qui compose une application dans un fichier</li>
+								<li>Fichier par défaut, fig.yml</li>
+							</ul>
+						</p>
+					</section>
+
+					<section>
+						<h2>Déployer avec une baleine</h2>
+
+						<p>
+							<img src="images/fig-yml.png"><br/>
+							<i style="color:rgb(116,116,116);">Exemple de déclaration d'environnement</i>
+						</p>
+					</section>
+
+					<section>
+						<h2>Déployer avec une baleine</h2>
+
+						<p>
+							<pre>$ fig build
+engine uses an image, skipping
+Building front...
+ ---> 1822529acbbf
+Step 1 : COPY myVhost.conf /etc/nginx/conf.d/default.conf
+ ---> 07e91ba25c16
+Removing intermediate container 19eb539844a8
+Successfully built 07e91ba25c16</pre>
+							<br/>
+							Construit les images à construire. Les services qui utilisent. Les services utilisant des images déjà buildées (Docker Hub) seront téléchargées au moment du démarrage si celles-ci n'existent pas déjà.
+						</p>
+					</section>
+
+					<section>
+						<h2>Déployer avec une baleine</h2>
+
+						<p>
+							<pre>$ fig up --no-recreate
+Recreating test_engine_1...
+Recreating test_front_1...
+Attaching to test_engine_1, test_front_1
+engine_1 | [14-Jan-2015 10:19:21] NOTICE: fpm is running, pid 1
+engine_1 | [14-Jan-2015 10:19:21] NOTICE: ready to handle connections</pre>
+							<br/>
+							On peut voir les logs des containers pour cet environnement. <br/>
+							L'option <i>--no-recreate</i> est essentiel. Elle permet de lancer les containers utilisés lors de la session précédente.
+						</p>
+					</section>
+
+					<section>
+						<h2>Déployer avec une baleine</h2>
+
+						<p class="fragment" data-fragment-index="0">
+							<h4>Quel avenir pour Fig</h4>
+							<ul>
+								<li>
+									Être intégrer dans le client Docker
+									<pre>$ docker compose [build|up|kill|rm|…]</pre>
+								</li>
+								<li>Renommé de Fig à <strong>Compose</strong> dès sa version 1.2.</li>
+								<li>Devenir un outil central pour <strong>Swarm</strong> et autres fonctionnalités Docker visant à clusteriser les serveurs.</li>
+								<li>Devenir un outil de déploiement en production (limiter le <i>0 down-time</i>)</li>
+							</ul>
+						</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>End !</h2>
+						<p>
+							Remerciement à <a href="https://twitter.com/dgageot">David Gageot</a> pour son meetup pour <a target="_blank" href="https://twitter.com/LyonJUG">LyonJUG</a>, <a target="_blank" href="https://twitter.com/jpetazzo">Jérôme Petazzoni</a> et <a target="_blank" href="https://twitter.com/docker">Docker Inc.</a> pour le passage du Docker Tour à Lyon.
+							<br/>
+							Retrouver les 4 articles qui ont composés cette présentation sur le blog de <a href="http://wwww.wanadev.fr" target="_blank">Wanadev</a>.
+							<ul>
+								<li>
+									<a href="" target="_blank">Comprendre une baleine</a>
+								</li>
+								<li>
+									<a href="" target="_blank">Vivre avec une baleine</a>
+								</li>
+								<li>
+									<a href="" target="_blank">Commander une baleine</a>
+								</li>
+								<li>
+									<a href="" target="_blank">Déployer avec une baleine</a>
+								</li>
+							</ul>
+							<br/><br/>
+
+							Présentation par <a href="http://www.baptiste-donaux.fr" target="_blank">Baptiste Donaux</a>
 						</p>
 					</section>
 				</section>
