@@ -1,0 +1,6 @@
+impress:
+    build: ./
+    volumes:
+        - ".:/impress:rw"
+    ports:
+        - "8000:8000"
