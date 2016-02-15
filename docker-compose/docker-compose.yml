@@ -1,0 +1,6 @@
+impress:
+    image: baptistedonaux/reveal.js
+    volumes:
+        - ".:/impress:rw"
+    ports:
+        - "1947:1947"
