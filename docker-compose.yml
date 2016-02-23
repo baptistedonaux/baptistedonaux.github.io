@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+    front:
+        image: nginx
+        volumes:
+            - ".:/usr/share/nginx/html:ro"
+        environment:
+            - "VIRTUAL_HOST=local.baptistedonaux.github.io"
