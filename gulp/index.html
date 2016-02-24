@@ -104,6 +104,117 @@
 
                 <section>
                     <section>
+                        <h2>Aborescence</h2>
+
+                        <pre><code>app
+|_Resources
+  |_lib &lt;-- vos dépendances sont installées ici
+  |_public
+    |_images &lt;-- Pourquoi ne pas mettre vos images directement dans web/images ?
+    |_fonts &lt;-- Pourquoi ne pas mettre vos fonts directement dans web/fonts ?
+    |_stylesheet *.{less,sass,scss}
+    |_js *.{js,ts,cs}
+docker &lt;3
+src &lt;-- on abandonne les resources dans les bundles
+vendor
+web
+|_images
+|_fonts
+|_css &lt;-- les fichiers compilés dans app/Resources/public/stylesheet/
+|_js &lt;-- les fichiers compilés dans app/Resources/public/js/
+</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>Aborescence</h2>
+
+                        <p>
+                            Pour les resources CSS/JS, on gère un fichier principal (main/global) dans lequel on vient mettre les instructions communes à toutes les pages.<br/>
+                            Ce fichier est <strong>toujours</strong> chargé !<br/><br/>
+                            Quand un bout de code est manquant, on crée un fichier supplémentaire dans l'aborescence correspondante, qu'on vient ajouter dans le template Twig.
+
+                        </p>
+
+                        <pre><code>app
+|_Resources
+  |_lib &lt;-- vos dépendances sont installées ici
+  |_public
+    |_js
+      |_main.js
+      |_admin
+        |_list.js
+</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>Aborescence</h2>
+
+                        <pre><code class="twig">// app/Resources/views/base.html.twig
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{{ asset('/css/main.css') }}">
+{% endblock %}
+</code></pre>
+
+                        <pre><code class="twig">// app/Resources/views/admin/list.html.twig
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" type="text/css" href="{{ asset('/css/admin/list.css') }}">
+{% endblock %}
+</code></pre>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Gulp/Bower &lt;3</h2>
+
+                        <img src="images/bower.png" height="400px;">
+                    </section>
+
+                    <section>
+                        <h2>Gulp/Bower &lt;3</h2>
+                        
+                        <p>
+                            Gestionnaire de dépendances (assets).</br>
+                            Avantages:
+                            <ul>
+                                <li>Pas de dépendances à versionner</li>
+                                <li>Mise à jour rapide/efficasse et en continue des bilbiothèques</li>
+                            </ul>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Gulp/Bower &lt;3</h2>
+                        
+                        <pre><code class="json">// package.json
+{
+    "devDependencies": {
+        "bower": "1.5.*"
+    }
+}</code></pre>
+
+                        <pre><code class="json">// bower.json
+{
+    "dependencies": {
+        "autocomplete.js": "2.0.*"
+    }
+}
+
+}</code></pre>
+
+                    <pre><code class="json">// .bowerrc
+{
+    "directory": "app/Resources/lib/"
+}                        
+</code></pre>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
                         <h2>Comment installer gulp.js ?</h2>
                     </section>
 
@@ -289,6 +400,100 @@ gulp.task('js', function () {
         }))
         .pipe(gulp.dest('./web/js'));
 });</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>JSX - Factory</h2>
+
+                        <pre><code class="javascript">// app/Resources/public/js/main.js
+                        
+function createElement(element, attributes, subelements)
+{
+    var element = document.createElement(element);
+
+    for (var attribute in attributes) {
+        element.setAttribute(attribute, attributes[attribute]);
+    }
+
+    if (subelements !== undefined) {
+        for (var i = 0; i < subelements.length; i++) {
+            if (typeof subelements[i] == "string") {
+                element.appendChild(
+                    document.createTextNode(subelements[i])
+                    );
+            } else {
+                element.appendChild(subelements[i]);
+            }
+        };
+    }
+
+    return element;
+}
+</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>JSX - Syntaxe</h2>
+
+                        <pre><code class="javascript">var myElement = <div class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>;
+</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>JSX - Une fois compilé</h2>
+
+                        <pre><code class="javascript">var myElement = createElement('div', {class: "modal fade", tabindex: "-1", role: "dialog"}, [
+  createElement('div', {class: "modal-dialog"}, [
+    createElement('div', {class: "modal-content"}, [
+      createElement('div', {class: "modal-header"}, [
+        createElement('button', {type: "button", class: "close", 'data-dismiss': "modal", 'aria-label': "Close"}, [createElement('span', {'aria-hidden': "true"}, ["×"])]),
+        createElement('h4', {class: "modal-title"}, ["Modal title"])
+      ]),
+      createElement('div', {class: "modal-body"}, [
+        createElement('p', null, ["One fine body…"])
+      ]),
+      createElement('div', {class: "modal-footer"}, [
+        createElement('button', {type: "button", class: "btn btn-default", 'data-dismiss': "modal"}, ["Close"]),
+        createElement('button', {type: "button", class: "btn btn-primary"}, ["Save changes"])
+      ])
+    ])
+  ])
+]);
+</code></pre>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Problème<h2>
+
+                        <p>
+                            <ul>
+                                <li data-fragment-index="1" class="fragment">
+                                    Gestion des erreurs de compilation dans le <strong>watch</strong> mal géré.
+                                </li>
+
+                                <li data-fragment-index="2" class="fragment">
+                                    L'import de fichier JS avec <strong>gulp-imports</strong> pas <i>tip-top</i>
+                                </li>
+                            </ul>
+                        </p>
                     </section>
                 </section>
 
