@@ -51,7 +51,7 @@
                     <p>
                         <ul>
                             <li>
-                                Développeur Symfony chez Wanadev
+                                Symfony Lead Developer chez Wanadev
                             </li>
                             <li>
                                 <a target="_blank" href="http://www.wanadev.fr"><i class="fa fa-globe"></i> www.wanadev.fr</a>
@@ -104,7 +104,7 @@
 
                 <section>
                     <section>
-                        <h2>Aborescence</h2>
+                        <h2>Arborescence</h2>
 
                         <pre><code>app
 |_Resources
@@ -115,7 +115,7 @@
     |_stylesheet *.{less,sass,scss}
     |_js *.{js,ts,cs}
 docker &lt;3
-src &lt;-- on abandonne les resources dans les bundles
+src &lt;-- on abandonne les ressources dans les bundles
 vendor
 web
 |_images
@@ -126,12 +126,12 @@ web
                     </section>
 
                     <section>
-                        <h2>Aborescence</h2>
+                        <h2>Arborescence</h2>
 
                         <p>
-                            Pour les resources CSS/JS, on gère un fichier principal (main/global) dans lequel on vient mettre les instructions communes à toutes les pages.<br/>
+                            Pour les ressources CSS/JS, on gère un fichier principal (main/global) dans lequel on vient mettre les instructions communes à toutes les pages.<br/>
                             Ce fichier est <strong>toujours</strong> chargé !<br/><br/>
-                            Quand un bout de code est manquant, on crée un fichier supplémentaire dans l'aborescence correspondante, qu'on vient ajouter dans le template Twig.
+                            Quand un bout de code est manquant, on crée un fichier supplémentaire dans l'arborescence correspondante, qu'on vient ajouter dans le template Twig.
 
                         </p>
 
@@ -147,7 +147,7 @@ web
                     </section>
 
                     <section>
-                        <h2>Aborescence</h2>
+                        <h2>Arborescence</h2>
 
                         <pre><code class="twig">// app/Resources/views/base.html.twig
 
@@ -181,7 +181,7 @@ web
                             Avantages:
                             <ul>
                                 <li>Pas de dépendances à versionner</li>
-                                <li>Mise à jour rapide/efficasse et en continue des bilbiothèques</li>
+                                <li>Mise à jour rapide/efficace et en continue des bibliothèques</li>
                             </ul>
                         </p>
                     </section>
@@ -313,7 +313,7 @@ gulp.task('default', ["js"]);</code></pre>
                     <section>
                         <h2>Introduction et convention (js)</h2>
 
-                        <pre><code class="javascript">// app/Rescources/public/js/main.js
+                        <pre><code class="javascript">// app/Resources/public/js/main.js
 
 //import("../../lib/jquery/dist/jquery.js");
 //import("../../lib/bootstrap/dist/js/bootstrap.js");
@@ -325,10 +325,10 @@ $(document).ready(function() {
                     </section>
 
                     <section>
-                        <h2>Introduction et convention (gestion des environements)</h2>
+                        <h2>Introduction et convention (gestion des environnements)</h2>
 
                         <p>
-                            Pour gérer son environement de <strong>dev</strong> différement de celui de <strong>prod</strong>, vous pouvez créer des tasks différentes.
+                            Pour gérer son environnement de <strong>dev</strong> différemment de celui de <strong>prod</strong>, vous pouvez créer des tasks différentes.
 
                             <ul>
                                 <li>css-dev</li>
