@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <title>Elasticsearch - par Baptiste Donaux & Wanadev</title>
+
+        <meta name="description" content="Elasticsearch et comment être pertinent">
+        <meta name="author" content="Baptiste Donaux">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="css/theme/elasticsearch.css" id="theme">
+
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName('head')[0].appendChild(link);
+            }
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <img src="images/elasticsearch.png">
+                    <h3>Elasticsearch et comment être pertinent</h3>
+                    <p>
+                        <small>Créé par <a target="_blank" href="http://www.baptiste-donaux.fr">Baptiste Donaux</a></small>
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Baptiste Donaux</h2>
+                    <p>
+                        <ul>
+                            <li>
+                                Symfony Lead Developer chez Wanadev
+                            </li>
+                            <li>
+                                <a target="_blank" href="https://www.wanadev.fr"><i class="fa fa-globe"></i> www.wanadev.fr</a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="https://www.baptiste-donaux.fr"><i class="fa fa-globe"></i> www.baptiste-donaux.fr</a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/baptistedonaux"><i class="fa fa-twitter"></i> @baptistedonaux</a>
+                            </li>
+                            <li>
+                                <a href="mailto:baptiste.donaux@gmail.com"><i class="fa fa-send"></i> baptiste.donaux@gmail.com</a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/baptistedonaux"><i class="fa fa-github"></i> baptistedonaux</a>
+                            </li>
+                        </ul>
+                    </p>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Elasticsearch, qu'est-ce que c'est ?</h2>
+                    </section>
+                    <section>
+                        <h2>En bref…</h2>
+
+                        <ul>
+                            <li>
+                                <a href="https://www.elastic.co/blog/found-elasticsearch-as-nosql" target="_blank">
+                                    Une base de donnée <strong>NoSQL</strong>
+                                </a>
+                            </li>
+                            <li>Doté d'une <strong>API RESTful</strong></li>
+                            <li>Basé sur le moteur d'indexation <strong>Lucene</strong></li>
+                            <li>Écrit en <strong>Java</strong></li>
+                            <li>Développé par la société <strong>Elastic</strong></li>
+                            <li>Dont le fondateur est <strong>Shay Banon</strong></li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Objectif</h2>
+
+                        <p>
+                            Indexer du contenu dans le but de resortir des informations par pertinence selon des cas métiers.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Concurrence</h2>
+
+                        <p>
+                            Elasticsearch est un concurrent plus « Monolithique » de SolR.
+                        </p>
+
+                        <ul>
+                            <li data-fragment-index="0" class="fragment">
+                                Pas de Tomcat
+                            </li>
+
+                            <li data-fragment-index="1" class="fragment">
+                                De nombreuses features intégrées de base comme le Clustering, Backup &amp; Restore, 
+                            </li>
+
+                            <li data-fragment-index="2" class="fragment">
+                                « Plug and Play » Une configuration par défaut très bonne. Tout est « overridable ».
+                            </li>
+
+                            <li data-fragment-index="3" class="fragment">
+                                Possibilité d'avoir du support, des <a href="https://www.elastic.co/products" target="_blank">produits de gestions avancées</a>, et même du <a href="https://www.elastic.co/cloud" target="_blank">SaaS</a>.
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>
+                            Qui l'utilise ?
+                        </h2>
+
+                        <ul>
+                            <li>
+                                <strong>Wikipédia</strong> : recherche full-text avec highlight, suggestions...
+                            </li>
+                            <li>
+                                <strong>StackOverflow</strong> : recherche full-text, « more like this » pour les questions similaires
+                            </li>
+                            <li>
+                                <strong>GitHub</strong> : indexation des codes sources
+                            </li>
+                            <li>
+                                <strong>Goldman</strong> Sachs : 5To de logs par jour
+                            </li>
+                            <li>
+                                <strong>Dailymotion</strong> : millions de vidéos indéxées
+                            </li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Terminologies</h2>
+
+                        <ul>
+                            <li data-fragment-index="0" class="fragment">
+                                Un <strong>Cluster</strong> est un ensemble de nodes.
+                            </li>
+
+                            <li data-fragment-index="1" class="fragment">
+                                Un <strong>Node</strong> est une instance d'elasticsearch
+                            </li>
+
+                            <li data-fragment-index="2" class="fragment">
+                                Un <strong>Index</strong> est namespace logique (comme un table en BDD)
+                            </li>
+
+                            <li data-fragment-index="3" class="fragment">
+                                Un <strong>Shard</strong> est une instance de Lucene pour stocker des documents. Il y a <i>n</i> shards dans un <i>index</i>. On ne deal jamais avec les shards.<br/>
+                                Un <i>shard</i> peut être <strong>primary</strong> ou <strong>replica</strong>.<br/>
+                                Un <i>document</i> est contenu par un unique <i>shard</i>.
+                            </li>
+
+                            <li data-fragment-index="4" class="fragment">
+                                Un <strong>Type</strong> est un sous-ensemble d'un Index.
+                            </li>
+
+                            <li data-fragment-index="5" class="fragment">
+                                Un <strong>Document</strong> est une entrée.
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Cluster</h2>
+                        <ul>
+                            <li>
+                                Un cluster possède <strong>toujours</strong> un unique node master.
+                            </li>
+
+                            <li>
+                                <strong>Master</strong> élu automatiquement.
+                            </li>
+
+                            <li>
+                                Le <strong>Master</strong> est responsable des opérations (écriture, ajout/suppression d'index, gestion des nodes).
+                            </li>
+
+                            <li>
+                                Mais tous les nodes peuvent répondre pour de la lecture.
+                            </li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>API</h2>
+                    </section>
+
+                    <section>
+                        <h2>Deux API</h2>
+
+                        <ul>
+                            <li>API <strong>RESTful</strong> sur le port <strong>9200</strong></li>
+                            <li>API <strong>JAVA</strong> sur le port <strong>9300</strong></li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>RESTful - Quels langages ?</h2>
+
+                        <p>Pour les libs officielles</p>
+
+                        <ul>
+                            <li>Java</li>
+                            <li>JavaScript</li>
+                            <li>Groovy</li>
+                            <li>.NET</li>
+                            <li>PHP</li>
+                            <li>Perl</li>
+                            <li>Python</li>
+                            <li>Ruby</li>
+                            <li>et d'autres non officielles</li>
+                        </ul>
+                    </section>
+                            
+                    <section>
+                        <h2>RESTful - Quelles libs ?</h2>
+                        <p>
+                            <a href="https://www.elastic.co/guide/en/elasticsearch/client/index.html" target="_blank">
+                                Liste des clients
+                            </a>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Quelle solution pour du PHP ?</h2>
+
+                        <ul>
+                            <li>
+                                <strong>elasticsearch</strong>, client officielle
+                            </li>
+
+                            <li>
+                                <strong>Elastica</strong> sur lequel est basé <strong>FOSElasticaBundle</strong>, une version proposant une gestion à base d'objets.
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Quelle solution pour du PHP ?</h2>
+                        <h3>FOSElasticaBundle</h3>
+
+                        <ul>
+                            <li>Faible activité sur GitHub</li>
+                            <li>Des demandes en attentes depuis longtemps (<a href="https://github.com/FriendsOfSymfony/FOSElasticaBundle/issues/638" target="_blank">#638</a> ouverte et taggée dans la prochaine Milestone depuis Juin 2014 n'est toujours pas terminée)</li>
+                            <li>
+                                Pas adapté dans la plupart des cas, car les documents sont indexés des schémas de BDD.
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Quelle solution pour du PHP ?</h2>
+                        <h3>Elastica</h3>
+
+                        <ul>
+                            <li>Toujours en cours de développement</li>
+                            <li>Stable, recommandé</li>
+                            <li>Utilisé pour de la veille sur un projet chez Wanadev et abandonné car manque de flexibilité sur le push de configuration (<i>index</i>/<i>type</i>/<i>settings</i>/<i>analyser</i>/et autres)</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Quelle solution pour du PHP ?</h2>
+                        <h3>elasticsearch</h3>
+
+                        <ul>
+                            <li>Client officiel</li>
+                            <li>Stable, simple, <i>plug-and-play</i></li>
+                            <li>Utilisé chez Wanadev sur un projet</li>
+                            <li>Gestion des multiples hosts</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Quelle solution pour du PHP ?</h2>
+                        <h3>From Scratch</h3>
+
+                        <p>
+                            Solution pertinente car gestion des requêtes extrêmement simples
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Problème avec le langage PHP ?</h2>
+
+                        <p>
+                            Si données à indexer importantes, PHP peut être limiter.
+                        </p>
+                    </section>
+                </section>
+
+            </div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+
+        <script>
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/math/math.js', async: true },
+                    { src: 'plugin/notes/notes.js', async: true },
+                    // { src: 'plugin/remotes/remotes.js', async: true },
+                    { src: 'plugin/zoom-js/zoom.js', async: true },
+                    { src: 'socket.io/socket.io.js', async: true },
+                    { src: 'plugin/notes-server/client.js', async: true }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
