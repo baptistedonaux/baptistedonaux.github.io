@@ -10,7 +10,7 @@ services:
 
   kibana:
     build:
-      context: ./
+      context: ./environment/
       dockerfile: Dockerfile.kibana
     environment:
       - "ELASTICSEARCH_URL=http://elasticsearch:9200"
@@ -18,3 +18,13 @@ services:
       - 5601:5601
     depends_on:
       - elasticsearch
+
+  php:
+    image: php:7.0-cli
+    volumes:
+      - ".:/examples:ro"
+    depends_on:
+      - elasticsearch
+    entrypoint: php
+    command: "-h"
+    working_dir: /examples

@@ -334,6 +334,325 @@
                             <pre><code class="shell">$ kibana plugin --install elastic/sense</code></pre>
                         </p>
                     </section>
+
+                    <section>
+                        <h2>
+                            Example
+                        </h2>
+
+                        <p>
+                            Fichiers d'exemples disponibles.
+                            <ul>
+                                <li>
+                                    <a href="./examples/docker-compose.yml">
+                                        docker-compose.yml
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="./examples/Dockerfile.kibana">
+                                        Dockerfile.kibana
+                                    </a>
+                                </li>
+                            </ul>
+                        </p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Request</h2>
+
+                        <ul>
+                            <li class="fragment" data-fragment-index="0">
+                                <strong>GET</strong> pour lire un/des résultats
+                            </li>
+
+                            <li class="fragment" data-fragment-index="1">
+                                <strong>PUT</strong> pour ajouter un document
+                            </li>
+
+                            <li class="fragment" data-fragment-index="2">
+                                <strong>POST</strong> pour ajouter/modifier un document
+                            </li>
+
+                            <li class="fragment" data-fragment-index="3">
+                                <strong>DELETE</strong> pour supprimer un document
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Hello world !</h2>
+                        <pre><code class="json">GET /</code></pre>
+                        <pre><code class="json">{
+  "name": "Zero-G",
+  "cluster_name": "elasticsearch",
+  "version": {
+    "number": "2.2.0",
+    "build_hash": "8ff36d139e16f8720f2947ef62c8167a888992fe",
+    "build_timestamp": "2016-01-27T13:32:39Z",
+    "build_snapshot": false,
+    "lucene_version": "5.4.1"
+  },
+  "tagline": "You Know, for Search"
+}</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>Indexer un document</h2>
+
+                        <pre><code class="json">PUT /club/member/1
+{
+    "firstname": "John",
+    "lastname": "Smith"
+}</code></pre>
+
+                        <pre><code class="json">{
+  "_index": "club",
+  "_type": "member",
+  "_id": "1",
+  "_version": 1,
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  },
+  "created": true
+}</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>Indexer un document</h2>
+
+                        <pre><code class="json">{
+  "_index": "club",
+  "_type": "member",
+  "_id": "1",
+  "_version": 1,
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  },
+  "created": true
+}</code></pre>
+
+                        <ul>
+                            <li>On a créé un index (_index: club) car celui-ci n’existait pas</li>
+                            <li>On a créé un type (_type: member) car celui-ci n'existait pas</li>
+                            <li>On a indexé un document (_id: 1)</li>
+                            <li>Le document est dans sa version 1 (cela permet de gérer la synchronisation entre les shards d'un cluster</li>
+                            <li>Le document a tout juste été créé. Il ne s'agissait pas d'une édition</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Indexer un document</h2>
+
+                        <p>
+                            Par défaut les types et les index sont créés automatiquement<br/>
+                            <pre>action.auto_create_index: false // pour désactiver</pre>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Récupérer un document</h2>
+
+                        <pre><code class="json">GET /club/member/1</code></pre>
+                        <pre><code class="json">{
+  "_index": "club",
+  "_type": "member",
+  "_id": "1",
+  "_version": 1,
+  "found": true,
+  "_source": {
+    "firstname": "John",
+    "lastname": "Smith"
+  }
+}</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>Supprimer un document</h2>
+
+                        <pre><code class="json">DELETE /club/member/1</code></pre>
+                        <pre><code class="json">{
+  "found": true,
+  "_index": "club",
+  "_type": "member",
+  "_id": "1",
+  "_version": 2,
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  }
+}</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>Faire une recherche</h2>
+
+                        <pre><code class="json">GET /club/member/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "_index": {
+              "value": "club"
+            }
+          }
+        }
+      ],
+      "should": [
+        {
+          "term": {
+            "nickname": {
+              "value": "nickname_to_boost",
+              "boost": 2
+            }
+          }
+        }
+      ]
+    }
+  }
+}</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>Faire une recherche</h2>
+
+                        <p>
+                            Liste des requêtes dans la section <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html" target="_blank">Query DSL</a>
+                        </p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Des petits plus et puis s'en vont</h2>
+                    </section>
+
+                    <section>
+                        <h2>À savoir</h2>
+
+                        <ul>
+                            <li class="fragment" data-fragment-index="0">
+                                Par défaut les <strong>index</strong> et les <strong>types</strong> sont créés automatiquement. Je conseille de désactiver cette feature pour pousser les applications à posséder un mapping précis du type des champs à avoir.
+                            </li>
+
+                            <li class="fragment" data-fragment-index="1">
+                                <strong>Tous les champs</strong> peuvent être/ou ne pas être renseigné.
+                            </li>
+
+                            <li class="fragment" data-fragment-index="2">
+                                Tous les champs sont de types <strong>Array</strong>. Vous pouvez donc renseigné autant de valeurs que vous voulez.
+                            </li>
+
+                            <li class="fragment" data-fragment-index="3">
+                                Vous pouvez faire des recherches multiples <i>index</i> et multiples <i>types</i>.
+                            </li>
+                        </li>
+                    </section>
+
+                    <section>
+                        <h2>Plugins</h2>
+
+                        <ul>
+                            <li class="fragment" data-fragment-index="0">
+                                <a href="https://www.elastic.co/guide/en/elasticsearch/plugins/2.2/intro.html" target="_blank">
+                                    De nombreux plugins
+                                </a>
+                            </li>
+
+                            <li class="fragment" data-fragment-index="1">
+                                Un analyseur pour indexer toutes les langues <a href="https://www.elastic.co/guide/en/elasticsearch/plugins/2.2/analysis-icu.html" target="_blank">ICU</a>.
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Performance</h2>
+
+                        <p>
+                            Elasticsearch met en cache le résultat des requêtes sur chacun des résultats retournés.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Performance</h2>
+
+                        <p>
+                            Deux types de requêtes : <strong>query</strong> et <strong>filter</strong>.
+
+                            Les <i>filter</i> sont catégoriques et donc rapide.<br/>
+                            Les <i>query</i> sont modérés et influent donc sur le score et la pertinence du résultat.<br/>
+                        </p>
+
+                        <p class="fragment" data-fragment-index="0">
+                            Les filters sont rapides, il faut donc <strong>trier ses <i>filters</i> par ordre d'efficacité</strong> pour limiter le stockage des résultats d'un filtre à l'autre.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Performance</h2>
+
+                        <p>
+                            Indexer des documents unitairement n'est pas efficace. Mieux vaut utiliser des <strong>Bulk</strong> et indexer des documents en masse.
+                        </p>
+
+                        <h3 class="fragment" data-fragment-index="0">Insertion de 1000 documents</h3>
+                        <ul class="fragment" data-fragment-index="1">
+                            <li>
+                                Un par un : 95 secondes
+                            </li>
+                            <li>
+                                Bulk : 1 seconde
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Mapping</h2>
+
+                        <p>
+                            Définir un <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping.html" target="_blank">mapping</a> comme on veut.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Analyzers/Tokenizers/Filters</h2>
+
+                        <p>
+                            Définir des <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis.html" target="_blank">analyzers/tokenizers</a> selon nos besoins.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Subfilters et pertinences</h2>
+
+                        <p>
+                            On peut indexer une version d'une valeur mais également indexer une valeur sous plusieurs formes.
+
+                            <h3>Exemple :</h3>
+
+                            On peut très bien imaginer l'indexation d'un document dans le champs <i>content</i> avec un analyseur enlevant les stop words (de, la, une).<br/>
+                            On aurait un subfield (<i>content.raw</i>) pour indexer ce même contenu sans analyseur et pouvoir resortir le contenu sans l’altérer.
+                        </p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Merci</h2>
+
+                        <p>
+                            <img src="http://i.giphy.com/10D60NnXkMIaHe.gif">
+                        </p>
+                    </section>
                 </section>
             </div>
         </div>

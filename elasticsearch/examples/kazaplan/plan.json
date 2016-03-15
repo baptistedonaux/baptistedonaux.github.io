@@ -1,0 +1,187 @@
+{
+    "planLite": {
+        "uuid": "4392a34d-00cb-4990-a58d-a2b23fff40df",
+        "plan": [{
+            "floorContent": {
+                "rooms": [{
+                    "area": "80 m²",
+                    "livingArea": "80 m²",
+                    "Habitable": true,
+                    "type": "room",
+                    "name": "Pièce",
+                    "materials": {
+                        "floorStruct": {
+                            "title": "Ayous clair (érable africain)",
+                            "category": "Wood"
+                        },
+                        "ceil": {
+                            "color": "r: 0.7 g: 0.7 b: 0.7",
+                            "category": "peinture"
+                        },
+                        "walls": [{
+                            "color": "r: 0.13 g: 0.13 b: 0.125",
+                            "category": "peinture",
+                            "surface": "25.75 m²"
+                        }, {
+                            "color": "r: 0.7 g: 0.7 b: 0.7",
+                            "category": "peinture",
+                            "surface": "20.75 m²"
+                        }, {
+                            "color": "r: 0.7 g: 0.7 b: 0.7",
+                            "category": "peinture",
+                            "surface": "25.75 m²"
+                        }, {
+                            "color": "r: 0.7 g: 0.7 b: 0.7",
+                            "category": "peinture",
+                            "surface": "20.75 m²"
+                        }]
+                    },
+                    "objects": [{
+                        "title": "200x100",
+                        "category": "Table",
+                        "sub_category": "Table",
+                        "width": 200.01,
+                        "depth": 100.01000000011118,
+                        "height": 80.0000000372529
+                    }, {
+                        "title": "140x200 cm",
+                        "category": "Bed",
+                        "sub_category": "Double bed",
+                        "width": 150.00000000000003,
+                        "depth": 213.00000386312607,
+                        "height": 85.00000044703484
+                    }]
+                }, {
+                    "area": "14.972682000000006 m²",
+                    "livingArea": "14.972682000000006 m²",
+                    "Habitable": false,
+                    "type": "garden",
+                    "name": "Jardin",
+                    "materials": {
+                        "floorStruct": {
+                            "url": "textures/textureset/ground/ground04.jpg"
+                        },
+                        "ceil": {
+                            "color": "r: 0.7 g: 0.7 b: 0.7",
+                            "category": "peinture"
+                        },
+                        "walls": [{
+                            "color": "r: 0.7 g: 0.7 b: 0.7",
+                            "category": "peinture",
+                            "surface": "0 m²"
+                        }, {
+                            "color": "r: 0.7 g: 0.7 b: 0.7",
+                            "category": "peinture",
+                            "surface": "0 m²"
+                        }, {
+                            "color": "r: 0.7 g: 0.7 b: 0.7",
+                            "category": "peinture",
+                            "surface": "0 m²"
+                        }, {
+                            "color": "r: 0.7 g: 0.7 b: 0.7",
+                            "category": "peinture",
+                            "surface": "20.75 m²"
+                        }]
+                    }
+                }],
+                "externalWall": [
+                    [{
+                        "color": "r: 0.7 g: 0.7 b: 0.7",
+                        "category": "peinture",
+                        "surface": "0 m²"
+                    }, {
+                        "color": "r: 0.7 g: 0.7 b: 0.7",
+                        "category": "peinture",
+                        "surface": "20.75 m²"
+                    }, {
+                        "color": "r: 0.7 g: 0.7 b: 0.7",
+                        "category": "peinture",
+                        "surface": "25.75 m²"
+                    }, {
+                        "color": "r: 0.7 g: 0.7 b: 0.7",
+                        "category": "peinture",
+                        "surface": "20.75 m²"
+                    }, {
+                        "color": "r: 0.7 g: 0.7 b: 0.7",
+                        "category": "peinture",
+                        "surface": "25.75 m²"
+                    }, {
+                        "color": "r: 0.7 g: 0.7 b: 0.7",
+                        "category": "peinture",
+                        "surface": "20.75 m²"
+                    }, {
+                        "color": "r: 0.7 g: 0.7 b: 0.7",
+                        "category": "peinture",
+                        "surface": "0 m²"
+                    }, {
+                        "color": "r: 0.7 g: 0.7 b: 0.7",
+                        "category": "peinture",
+                        "surface": "0 m²"
+                    }]
+                ],
+                "overtures": [],
+                "exteriorObjects": []
+            },
+            "label": "RDC"
+        }, {
+            "floorContent": {
+                "rooms": [{
+                    "area": "80 m²",
+                    "livingArea": "80 m²",
+                    "Habitable": true,
+                    "type": "room",
+                    "name": "Pièce",
+                    "materials": {
+                        "floorStruct": {
+                            "url": "textures/parquet/parquet_DIFFUSE.png"
+                        },
+                        "ceil": {
+                            "color": "r: 0.7 g: 0.7 b: 0.7",
+                            "category": "peinture"
+                        },
+                        "walls": [{
+                            "color": "r: 0.7 g: 0.7 b: 0.7",
+                            "category": "peinture",
+                            "surface": "25.75 m²"
+                        }, {
+                            "color": "r: 0.7 g: 0.7 b: 0.7",
+                            "category": "peinture",
+                            "surface": "20.75 m²"
+                        }, {
+                            "color": "r: 0.7 g: 0.7 b: 0.7",
+                            "category": "peinture",
+                            "surface": "25.75 m²"
+                        }, {
+                            "color": "r: 0.7 g: 0.7 b: 0.7",
+                            "category": "peinture",
+                            "surface": "20.75 m²"
+                        }]
+                    }
+                }],
+                "externalWall": [
+                    [{
+                        "color": "r: 0.7 g: 0.7 b: 0.7",
+                        "category": "peinture",
+                        "surface": "25.75 m²"
+                    }, {
+                        "color": "r: 0.7 g: 0.7 b: 0.7",
+                        "category": "peinture",
+                        "surface": "20.75 m²"
+                    }, {
+                        "color": "r: 0.7 g: 0.7 b: 0.7",
+                        "category": "peinture",
+                        "surface": "25.75 m²"
+                    }, {
+                        "color": "r: 0.7 g: 0.7 b: 0.7",
+                        "category": "peinture",
+                        "surface": "20.75 m²"
+                    }]
+                ],
+                "overtures": [],
+                "exteriorObjects": []
+            },
+            "label": "floorStruct 1"
+        }],
+        "lastModified": "Mon Mar 14 2016 14:14:26 GMT+0100 (Paris, Madrid)"
+    }
+}
