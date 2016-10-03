@@ -2,6 +2,4 @@ impress:
     image: nginx
     volumes:
         - ".:/usr/share/nginx/html:ro"
-    environment:
-        VIRTUAL_HOST: local.foo
 
