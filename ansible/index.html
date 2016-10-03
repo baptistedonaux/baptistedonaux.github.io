@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <title>Ansible - par Baptiste Donaux &amp; Wanadev</title>
+
+        <meta name="description" content="Gulp - L'art d'aspirer votre code">
+        <meta name="author" content="Baptiste Donaux">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="css/theme/ansible.css" id="theme">
+
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName('head')[0].appendChild(link);
+            }
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <img src="images/ansible-homepage.png">
+                    <p>
+                        <small>Créé par <a target="_blank" href="http://www.baptiste-donaux.fr">Baptiste Donaux</a></small>
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Baptiste Donaux</h2>
+                    <p>
+                        <ul>
+                            <li>
+                                Symfony Lead Developer chez Wanadev
+                            </li>
+                            <li>
+                                <a target="_blank" href="http://www.wanadev.fr"><i class="fa fa-globe"></i> www.wanadev.fr</a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="http://www.baptiste-donaux.fr"><i class="fa fa-globe"></i> www.baptiste-donaux.fr</a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/baptistedonaux"><i class="fa fa-twitter"></i> @baptistedonaux</a>
+                            </li>
+                            <li>
+                                <a href="mailto:baptiste.donaux@gmail.com"><i class="fa fa-send"></i> baptiste.donaux@gmail.com</a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/baptistedonaux"><i class="fa fa-github"></i> baptistedonaux</a>
+                            </li>
+                        </ul>
+                    </p>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Ansible, qu'est-ce que c'est ?</h2>
+                    </section>
+
+                    <section>
+                        <p>
+                            <ul>
+                                <li>Un outils et une société (rachété par Red Hat en octobre 2015)</li>
+                                <li>Un outils pour automatiser les tâches</li>
+                                <li>mais également les déploiements d'applications et de configurations</li>
+                            </ul>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>La concurrence dans tout ça ?</h2>
+
+                        <img src="images/chef.png" height="300px;">
+                        <img src="images/puppet.png" height="300px;">
+                    </section>
+
+                    <section>
+                        <h2>Les produits d'Ansible</h2>
+
+                        <ul>
+                            <li>Ansible (Core)</li>
+                            <li>Ansible Playbook</li>
+                            <li>Ansible Galaxy</li>
+                            <li>Ansible Vault</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Les specifications</h2>
+
+                        <ul>
+                            <li data-fragment-index="1" class="fragment">agent-less</li>
+                            <li data-fragment-index="2" class="fragment">Connexion via SSH</li>
+                            <li data-fragment-index="3" class="fragment">Python/YAML</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Les modules</h2>
+
+                        <ul>
+                            <li data-fragment-index="1" class="fragment">On peut écrire des modules (Python)</li>
+                            <li data-fragment-index="2" class="fragment">… mais il en existe déjà <a target="_blank" href="http://docs.ansible.com/ansible/list_of_all_modules.html">BEAUCOUP</a></li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>To</h2>
+
+                        <p>
+                            Les commandes sont exécutées vers des groupes de hosts définies dans <strong>/etc/ansible/hosts</strong>.
+                        </p>
+
+                        <p data-fragment-index="1" class="fragment">
+                            Exemple:<br>
+                            <pre data-fragment-index="1" class="fragment"><code>[baptiste-donaux.fr]
+me.baptiste-donaux.fr
+www.baptiste-donaux.fr</code></pre>
+                        </p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Ansible CLI</h2>
+                    </section>
+
+                    <section>
+                        <h2>Ansible CLI</h2>
+
+                        <p>
+                            <table>
+                                <tr>
+                                    <td>ansible</td>
+                                    <td>La commande à lancer</td>
+                                </tr>
+                                <tr>
+                                    <td>-m</td>
+                                    <td>Pour le module</td>
+                                </tr>
+                                <tr>
+                                    <td>-a</td>
+                                    <td>Pour les arguments</td>
+                                </tr>
+                            </table>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Ansible CLI - 1 host</h2>
+
+                        <p>
+                            <pre><code>$ ansible localhost -m ping
+localhost | SUCCESS => {
+    "changed": false, 
+    "ping": "pong"
+}</code></pre>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Ansible CLI - <i style="text-transform: lowercase;">n</i> hosts</h2>
+
+                        <p>
+                            <pre><code>$ ansible -m ping baptiste-donaux.fr
+me.baptiste-donaux.fr | success >> {
+    "changed": false, 
+    "ping": "pong"
+}
+
+www.baptiste-donaux.fr | success >> {
+    "changed": false, 
+    "ping": "pong"
+}</code></pre>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Vérifier que VIM est installé</h2>
+
+                        <p>
+                            <pre><code>ansible -m apt -a "name=vim state=present" localhost
+localhost | success >> {
+    "changed": false
+}
+</code></pre>
+                        </p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Ansible Playbook</h2>
+                    </section>
+
+                    <section>
+                        <h2>Ansible Playbook</h2>
+
+                        <p>
+                            Playbook vous permet de scripter vos scénarios.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Ansible Playbook</h2>
+                        <h3>Installer Docker sur un parc</h3>
+
+                        <pre><code>- hosts: baptiste-donaux.fr
+  tasks:
+    - name: Add APT key for Docker repository
+      apt_key:
+        keyserver: "hkp://p80.pool.sks-keyservers.net:80"
+        id: 58118E89F3A912897C070ADBF76221572C52609D
+
+    - apt_repository:
+        repo: 'deb https://apt.dockerproject.org/repo debian-jessie main'
+        state: present
+
+    - apt: update_cache=yes
+
+    - apt: name=docker-engine state=present
+
+    - systemd: enabled=yes state=started name=docker
+</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>Ansible Playbook</h2>
+                        
+                        <p>Si une de vos commandes échoue sur une de vos machines, un <strong><i>my_playbook</i>.retry</strong> est généré et vous pouvez relancer la commande sans reprendre depuis le début.</p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Ansible Vault</h2>
+                    </section>
+
+                    <section>
+                        <h2>Ansible Vault</h2>
+
+                        <p>Si vous stocker des informations sensibles dans vos playbooks, vous pouvez les encoder.</p>
+                    </section>
+
+                    <section>
+                        <h2>Ansible Vault</h2>
+                        <h3>Exemple</h3>
+
+                        <pre><code>$ ls .
+my_playbook.yml
+
+$ cat my_playbook.yml
+- hosts: localhost
+  tasks:
+    - shell: sshpass -p "foo" scp -r /bar baz@localhost:/qux</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>Ansible Vault</h2>
+                        <h3>Exemple</h3>
+
+                        <pre><code>$ ansible-vault encrypt my_playbook.yml
+New Vault password: 
+Confirm New Vault password: 
+Encryption successful
+
+$ cat my_playbook.yml
+$ANSIBLE_VAULT;1.1;AES256
+34396264333338636331323838386331393664623065383463663661373436643764336536326662
+6238626432373334356436613935306630376461633136650a316561316531323937633963643032
+64643239616561653864346132356537656536313030656532373733316262663536396438383262
+3463373265636232640a626364306666373665303633663630353132383764323530646438383737
+31336163633631373162356339633739356461656130353533306137613436663333383137376366
+62383533393262376362393565386133306432323266393034616331333932663266613739653538
+36663666333938323961343231366266323430376234376363353662386366373061636434613763
+35653139316465613562613834373434636238643661633434326661303438666233313732653338
+3264</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>Ansible Vault</h2>
+                        <h3>Exemple</h3>
+
+                        <pre><code>$ ansible-playbook my_playbook.yml --ask-vault-pass
+Vault password:
+…</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>Ansible Vault</h2>
+                        <h3>Et booom !</h3>
+
+                        <img src="./images/boom.gif">
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Ansible Galaxy</h2>
+                    </section>
+
+                    <section>
+                        <h2>Ansible Galaxy</h2>
+
+                        <p>
+                            Il s'agit d'un Hub regroupant tous les modules développés par la communauté. <br>
+                            Un peu comme <strong>Docker Hub</strong>.
+                        </p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Maintenant, vous savez !<h2>
+
+                        <p>
+                            <img src="./images/giphy.gif">
+                        </p>
+                    </section>
+                </section>
+            </div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+
+        <script>
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/math/math.js', async: true },
+                    { src: 'plugin/notes/notes.js', async: true },
+                    // { src: 'plugin/remotes/remotes.js', async: true },
+                    { src: 'plugin/zoom-js/zoom.js', async: true },
+                    { src: 'socket.io/socket.io.js', async: true },
+                    { src: 'plugin/notes-server/client.js', async: true }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
