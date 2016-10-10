@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <title>Bipbip.js - par Baptiste Donaux &amp; Wanadev</title>
+
+        <meta name="description" content="Bipbip.js présentation">
+        <meta name="author" content="Baptiste Donaux">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="css/theme/main.css" id="theme">
+
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName('head')[0].appendChild(link);
+            }
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h1>
+                        Bipbip<span style="color: #f2d50a;">.js</span>
+                    </h1>
+                    <img src="./images/logo.svg">
+                    <p>
+                        <small>Créé par <a target="_blank" href="http://www.baptiste-donaux.fr">Baptiste Donaux</a></small>
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Baptiste Donaux</h2>
+                    <p>
+                        <ul>
+                            <li>
+                                Lead Developer chez Wanadev
+                            </li>
+                            <li>
+                                <a target="_blank" href="http://www.wanadev.fr"><i class="fa fa-globe"></i> www.wanadev.fr</a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="http://www.baptiste-donaux.fr"><i class="fa fa-globe"></i> www.baptiste-donaux.fr</a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/baptistedonaux"><i class="fa fa-twitter"></i> @baptistedonaux</a>
+                            </li>
+                            <li>
+                                <a href="mailto:baptiste.donaux@gmail.com"><i class="fa fa-send"></i> baptiste.donaux@gmail.com</a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/baptistedonaux"><i class="fa fa-github"></i> baptistedonaux</a>
+                            </li>
+                        </ul>
+                    </p>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Contexte</h2>
+                    </section>
+
+                    <section>
+                        <h2>Contexte</h2>
+
+                        <p>
+                            Modernisation de nos outils de déploiements<br/>
+                            <ul>
+                                <li>Jenkins</li>
+                                <li>Capifony</li>
+                            </ul>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Objectif</h2>
+
+                        <ul>
+                            <li>Supprimer Jenkins</li>
+                            <li>Déployer nos projets avec un outils non-déprécié</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Pourquoi développer Bipbip.js</h2>
+                    </section>
+
+                    <section>
+                        <h2>Capifony 2++</h2>
+
+                        <p>
+                            <ul>
+                                <li>Capifony correspond à Capistrano 2 avec le module Symfony.</li>
+                                <li>Capistrano 2 est déprécié</li>
+                                <li>Capistrano 3 semble l'héritier logique</li>
+                                <li>Mais Capifony n'est plus, et l'<a href="https://github.com/capistrano/symfony/">utilisation de plugins</a> est nécessaire</li>
+                            </ul>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Capifony 3</h2>
+                        
+                        <p>
+                            (Arguments valables au moment de nos recherches)
+
+                            <ul>
+                                <li>Peu de documentation</li>
+                                <li>Faible communauté</li>
+                                <li>Configuration de nos projets qui doit être changée</li>
+                            </ul>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Troll.rb</h2>
+
+                        <ul>
+                            <li>Ruby</li>
+                            <li>Syntaxe désagréable pour les configuration</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>La concurrence</h2>
+
+                        <p>
+                            <ul>
+                                <li>Peu de concurrent sérieux</li>
+                                <li>La plupart sont dédiés au déploiement PHP</li>
+                                <li>La syntaxe déplaisante souvent copié sur Capistrano (cf. <a href="http://deployer.org/docs">Deployer</a>)</li>
+                            </ul>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Extras</h2>
+
+                        <p>
+                            Quelques problèmes avec Capifony qu'on aimerait bien changer.
+
+                            <ul>
+                                <li class="fragment" data-index-fragment="1">Rollback systématique du déploiement des releases en erreur</li>
+                                <li class="fragment" data-index-fragment="2">Syntaxe difficile</li>
+                                <li class="fragment" data-index-fragment="3">Système de plugins qui prouvent qu'on manque de liberté</li>
+                                <li class="fragment" data-index-fragment="4">Des systèmes qui imposent une certaine façon pour déployer</li>
+                                <li class="fragment" data-index-fragment="5">Des logs qui manquent d'informations</li>
+                            </ul>
+                        </p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Objectifs</h2>
+                    </section>
+
+                    <section>
+                        <h2>Objectifs</h2>
+
+                        <p>
+                            <i>Be better !</i><br/>
+                            <img src="./images/better.gif">
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>On veut un outils…</h2>
+
+                        <ul>
+                            <li class="fragment" data-index-fragment="1">Simple</li>
+                            <li class="fragment" data-index-fragment="2">Facile à comprendre et appréhender</li>
+                            <li class="fragment" data-index-fragment="3">Qui nous laisse libre de faire ce que l'on veut</li>
+                            <li class="fragment" data-index-fragment="4">Facile à déboguer</li>
+                            <li class="fragment" data-index-fragment="5">Qui facilite les contributions</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>On ne veut pas un outils…</h2>
+
+                        <ul>
+                            <li class="fragment" data-index-fragment="1">Lié à un langage</li>
+                            <li class="fragment" data-index-fragment="2">Qui soit fourre-tout</li>
+                            <li class="fragment" data-index-fragment="3">Qui propose pleins de solutions et de protocoles (ex: FTP)</li>
+                            <li class="fragment" data-index-fragment="4">Qui fasse des choses non prévus…</li>
+                            <li class="fragment" data-index-fragment="5">… ou dans une moindre mesure qui nous informe de ce qu'il a fait</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Stratégie</h2>
+                    </section>
+
+                    <section>
+                        <h2>Workflow</h2>
+                        
+                        <img src="./images/workflow.svg">
+                    </section>
+
+                    <section>
+                        <h2>Architecture</h2>
+
+                        <p>
+                            On reprend ce qui fonctionne (très) bien.<br/>
+                            <pre><code>./your_project
+|_ current -> ./releases/20160301010000
+|_ releases
+   |_ 20160101010000
+   |_ 20160201010000
+   |_ 20160301010000
+|_ shared</code></pre>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Configuration</h2>
+
+                        <p>
+                            <strong>Bipbip.js</strong> veut rendre libre le DevOps. Par conséquent, terminer les configurations à deux balles (et encore je suis gentil).
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Configuration</h2>
+
+                        <ul>
+                            <li>Fichier en JavaScript (à la Node.js)</li>
+                            <li>Un unique fichier pour tous les déploiements</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Configuration</h2>
+
+                        <p>
+                            <pre><code class="javascript">exports.config = {
+  default: {
+    workspace: "/path/to/workspace",
+    requirements: {
+        local: [],
+        remote: []
+    },
+    servers: [{
+      user: "user",
+      host: "server_to_deploy.io",
+      to: "/path/to/deploy"
+    }],
+    repository: {
+      url: "git@github.com:baptistedonaux/bipbip.js.git",
+      branch: null,
+      tag: null,
+      options: {
+        submodules: true|false
+      }
+    },
+    commands:  {
+      local: [
+        // local commands to run (before send to remote server)
+      ],
+      remote: [
+        // remote commands to run (after project send to remote server)
+      ],
+      postDeploy: [
+        // remote commands to run (after new release deployed)
+      ]
+    },
+    ignores: [
+      // ignore files/folders
+    ],
+    shared: {
+      files: [
+        // files shared
+      ],
+      folders: [
+        // folders shared
+      ]
+    },
+    releases: 3
+  },
+  &lt;env1&gt;: {
+  },
+  &lt;env2&gt;: {
+  }
+}</code></pre>
+                        </p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Exemple</h2>
+                        <h3>Déployer un Symfony</h3>
+                    </section>
+
+                    <section>
+                        <h2>Configuration</h2>
+
+                        <pre><code class="javascript">exports.config = {
+  default: {
+    commands:  {
+      local: [
+        "curl -sS https://getcomposer.org/installer | php",
+        ["php composer.phar install -o --no-progress", "npm run gulp prod"]
+      ]
+    },
+    requirements: {
+      local: ["php", "npm"],
+      remote: ["php"]
+    },
+    ignores: [
+      ".git",
+      ".gitignore",
+      ".gitlab-ci.yml",
+      "composer.json",
+      "composer.phar",
+      "docker-compose.yml.dist",
+      "gulpfile.js",
+      "package.json",
+      "deploy.js",
+
+      "docker",
+      "node_modules",
+      "web/app_dev.php",
+      "web/config.php"
+    ],
+    shared: {
+      files: ["app/config/parameters.yml"],
+      folders: ["var/logs", "web/uploads"]
+    },
+    releases: 3
+  },
+  dev: {
+    commands: {
+      remote: [
+        "php bin/console cache:clear -e prod",
+        "php bin/console doctrine:schema:update --force",
+        "chown www-data:www-data -R bin/console var/{cache,logs} web/app.php",
+        "chmod 775 -R bin/console var/{cache,logs} web/app.php",
+      ],
+      postDeploy: ["sudo service php5-fpm reload"]
+    },
+    servers: [{
+      user: "www-data",
+      host: "webserver.org",
+      to: "/home/www/my_project"
+    }]
+  }
+};</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>Go !</h2>
+
+                        <pre><code class="bash">$ npm install -g bipbip@0.7.*
+$ bipbip dev</code></pre>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Vers l'infini et l'au-delà !</h2>
+                    </section>
+
+                    <section>
+                        <h2>Améliorations à venir - Part 1</h2>
+
+                        <ul>
+                            <li>Meilleur affichage des logs</li>
+                            <li>Mise en place de différent niveau de logs (abstrait, technique…)</li>
+                            <li>Gestion des exclusions/inclusions grâce via des regex</li>
+                            <li>Faire une gestion avancé des connexions SSH en les gardant ouvertes (EPIC !)</li>
+                            <li>Synchroniser les fichiers/dossiers partagés lors du premier déploiement</li>
+                            <li>Mettre en place un outils pour initialiser un nouveau projet</li>
+                            <li>Mettre en place de template d'aide pour les différents types de projets (Symfony, Drupal, Laravel…)</li>
+                            <li>Mettre en place plus de tests unitaires</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Améliorations à venir - Part 2</h2>
+
+                        <ul>
+                            <li>Améliorer la documentation</li>
+                            <li>Mettre en place plus de services de validation (Coveralls…)</li>
+                            <li>Mettre en place un système de <strong>.retry</strong> à la <strong>Ansible</strong> pour relancer un déploiement</li>
+                            <li>Mettre en forme une fonction pour configurer une <i>step-to-stop</i> (permet de découper la partie <i>build</i> de la partie <i>deploy</i>)</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Amélioration <i>far far away</i></h2>
+
+                        <p>
+                            Re-écrire le projet une fois stable dans un langage qui n'imposerai pas l'installation d'autre paquet (comme Node.js actuellement).
+                        </p>
+                    </section>
+                </section>
+
+                <section>
+                    <h1>Thank you !</h1>
+                </section>
+            </div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+
+        <script>
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/math/math.js', async: true },
+                    { src: 'plugin/notes/notes.js', async: true },
+                    // { src: 'plugin/remotes/remotes.js', async: true },
+                    { src: 'plugin/zoom-js/zoom.js', async: true },
+                    { src: 'socket.io/socket.io.js', async: true },
+                    { src: 'plugin/notes-server/client.js', async: true }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
