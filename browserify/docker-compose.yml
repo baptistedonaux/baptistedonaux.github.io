@@ -1,0 +1,5 @@
+impress:
+    image: nginx
+    volumes:
+        - ".:/usr/share/nginx/html:ro"
+

@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <title>Browserify - par Baptiste Donaux &amp; Wanadev</title>
+
+        <meta name="description" content="Browserify">
+        <meta name="author" content="Baptiste Donaux">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="css/theme/main.css" id="theme">
+
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName('head')[0].appendChild(link);
+            }
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h1>Browserify</h1>
+                    <h2>chez Wanadev</h2>
+                    <p>
+                        <small>Créé par <a target="_blank" href="https://www.baptiste-donaux.fr">Baptiste Donaux</a></small>
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Baptiste Donaux</h2>
+                    <p>
+                        <ul>
+                            <li>
+                                Lead Developer chez Wanadev
+                            </li>
+                            <li>
+                                <a target="_blank" href="http://www.wanadev.fr"><i class="fa fa-globe"></i> www.wanadev.fr</a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="https://www.baptiste-donaux.fr"><i class="fa fa-globe"></i> www.baptiste-donaux.fr</a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/baptistedonaux"><i class="fa fa-twitter"></i> @baptistedonaux</a>
+                            </li>
+                            <li>
+                                <a href="mailto:baptiste.donaux@gmail.com"><i class="fa fa-send"></i> baptiste.donaux@gmail.com</a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/baptistedonaux"><i class="fa fa-github"></i> baptistedonaux</a>
+                            </li>
+                        </ul>
+                    </p>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>À quoi ça sert ?</h2>
+                    </section>
+
+                    <section>
+                        <p>
+                            <ul>
+                                <li>À faire du beau javascript</li>
+                                <li>Avec une belle syntaxe (<a href="http://www.commonjs.org/">CommonJS</a>)</li>
+                                <li>À utiliser des modules NPM</li>
+                                <li>À transpiler</li>
+                            </ul>
+                        </p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Gestion des dépendances</h2>
+                    </section>
+
+                    <section>
+                        <h2>Gestion des dépendances</h2>
+
+                        <p>
+                            Aujourd'hui on utilise <strong><a href="https://bower.io">Bower</a></strong>.<br><br>
+
+                            Maintenant, on peut utiliser <strong>NPM</strong>.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Gestion des dépendances</h2>
+
+                        <p>
+                            <ul>
+                                <li><strong>npm</strong> (ou <strong>yarn</strong>) sont déjà des gestionnaires de dépendances.</li>
+                                <li>Mais <i>Bower</i> peut encore être utile pour les dépendances non-JS (font-awesome par exemple).</li>
+                            </ul>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>npm: Pourquoi et pour qui ?</h2>
+
+                        <p>
+                            Pour les dépendances Node.js (avec la syntaxe <strong>CommonJS</strong>).
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Mais nous on fait du <i>front</i></h2>
+                        <h3>... et Node.js c'est pour le back</h3>
+
+                        <p>
+                            Node.js possède une syntaxe cool donc on a envie de s'inspirer !
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Module ES6</h2>
+
+                        <p>
+                            Les <strong>Modules ES6</strong> propose également une gestion à base de module qui ressemble fortement à celle de Python.
+                        </p>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="javascript">
+//------ lib.js ------
+export const sqrt = Math.sqrt;
+export function square(x) {
+    return x * x;
+}
+export function diag(x, y) {
+    return sqrt(square(x) + square(y));
+}
+
+//------ main.js ------
+import { square, diag } from 'lib';
+console.log(square(11)); // 121
+console.log(diag(4, 3)); // 5
+
+You can also import the complete module:
+
+//------ main.js ------
+import * as lib from 'lib';
+console.log(lib.square(11)); // 121
+console.log(lib.diag(4, 3)); // 5
+                            </code>
+                        </pre>
+                    </section>
+
+
+                    <section>
+                        <h2>Module ES6, pourquoi ne pas s'en servir ?</h2>
+
+                        <p>
+                            <ul>
+                                <li class="fragment" data-fragment-index="1">On utilise la même syntaxe pour du {back,front}-end</li>
+                                <li class="fragment" data-fragment-index="2">Si on roxe, on peut même écrire du code cross interpréteur 💪</li>
+                                <li class="fragment" data-fragment-index="3">La syntaxe Browserify se base sur un standart posé (CommonJS)</li>
+                                <li class="fragment" data-fragment-index="4">Les modules ES6 n'ont pas tout à fait fait leur preuve...</li>
+                                <li class="fragment" data-fragment-index="5">... Au pire, Browserify et les modules ES6 s'appuie sur les mêmes principes</li>
+                            </ul>
+                        </p>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h2>Comment on s'en sert à Wanadev ?</h2>
+                    </section>
+
+                    <section>
+                        <h2>Comment on s'en sert à Wanadev ?</h2>
+                        
+                        <p>
+                            On identifie les grosses parties de son site.
+                            <br>
+                            Exemple :
+                            <ol>
+                               <li class="fragment" data-fragment-index="1">Public</li> 
+                               <li class="fragment" data-fragment-index="2">Front-office</li> 
+                               <li class="fragment" data-fragment-index="3">Back-office</li> 
+                            </ol>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Comment on s'en sert à Wanadev ?</h2>
+                        
+                        <p>
+                            Et on va construire un fichier (appelé aussi <i>bundle</i>) qui contenir tout le code JavaScript propre à notre partie.
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Inconvénients</th>
+                                        <th>Avantages</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%; vertical-align: top;">
+                                            <ul>
+                                                <li class="fragment" data-fragment-index="1">Un gros fichier à charger</li>
+                                                <li class="fragment" data-fragment-index="2">Du code dans le fichier qui ne sera pas utiliser pour la page en cours</li>
+                                                <li class="fragment" data-fragment-index="3">Impossibilité de découper son application en plusieurs fichiers. Les dépendances doivent être dans le même fichier que celui du code métier.</li>
+                                            </ul>
+                                        </td>
+
+                                        <td style="width: 50%; vertical-align: top;">
+                                            <ul>
+                                                <li class="fragment" data-fragment-index="4">Un unique fichier à charger, et ce une unique fois</li>
+                                                <li class="fragment" data-fragment-index="5">Les dépendances ne seront chargés qu'une unique fois</li>
+                                                <li class="fragment" data-fragment-index="6">Aucune dépendance à charger ailleurs</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Arborescence</h2>
+
+                        <pre>
+                            <code>app
+|__ Resources
+    |__ public
+        |__ js
+            |__ back.js
+            |__ front.js
+            |__ public.js
+            |__ _base.js (contient le code commun à toutes les pages)</code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <h2>Entryfile</h2>
+
+                        <p>
+                            Les fichiers <i>back.js</i>, <i>front.js</i> et <i>public.js</i> sont des entryfiles.
+                            <br><br>
+                            Ils vont contenir les dépendances à intégrer mais ne contiennent aucun code métier.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Entryfile - Exemple</h2>
+
+                        <pre>
+                            <code class="javascript">"use strict";
+
+require("./_base.js")();
+
+const modules = {
+    "app_default_index": require("./default/index.js"),
+};
+
+module.exports = function(module, ...args) {
+    if (modules[module] === undefined) {
+        console.error(`Module ${module} doesn't exist.`);
+        return;
+    }
+
+    try {
+        modules[module](...args);
+    } catch (error) {
+        console.error(`[${module}] Exception thrown`);
+        throw error;
+    }
+};</code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <h2>Entryfile - Standalone</h2>
+
+                        <p>
+                            Les <i>entryfiles</i> sont les seuls fichiers auxquels nous allons accéder. L'option <i>standalone</i> de <strong>Browserify</strong> permet d'exposer <code>module.exports</code> dans une fonction.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Exemple de code métier</h2>
+
+                        <pre>
+                            <code class="javascript">"use strict";
+
+function foo(qux, quux) {
+    console.log(qux, quux);
+}
+
+module.exports = (bar, baz) => {
+    foo(bar, baz);
+};</code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <h2>Exemple d'utilisation</h2>
+
+                        <p>
+                            Exemple, nous avons compilé notre <i>bundle</i> et exposer le fichier dans la fonction <code>love</code>
+                        </p>
+
+                        <pre>
+                            <code>← love("foo");
+→ Module foo doesn't exist.
+
+← love("app_default_index", "Allô", "quoi ?!");
+→ Allô quoi ?!
+
+← foo();
+→ undefined</code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <h2>Comment utiliser des dépendances</h2>
+                        <h3 class="fragment" data-fragment-index="1">Genre jQuery... 🐻</h3>
+
+                        <pre class="fragment" data-fragment-index="2">
+                            <code class="javascript">"use strict";
+
+const $ = require("jquery");
+
+module.exports = () => {
+    $("body").html("👌");
+};</code>
+                        </pre>
+
+                        <p class="fragment" data-fragment-index="3">Et jQuery n'est pas accessible dans le scope locale !</p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>B{rowserify,abel}</h2>
+                    </section>
+
+                    <section>
+                        <h2>Babel</h2>
+
+                        <p>Il permettait initialement de transpiler du code ES2015 (ES6) en code ES5.</p>
+                    </section>
+
+                    <section>
+                        <h2>Babel</h2>
+
+                        <p>
+                            Maintenant il permet de transpiler du code dans plusieurs objectifs. On appelle ses modules des <i>presets</i>.
+
+                            <ul>
+                                <li>ES2015</li>
+                                <li>JSX</li>
+                                <li>et bien d'autres</li>
+                            </ul>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Babel</h2>
+
+                        <p>
+                            Mais Browserify et Babel ils ne savent parler ensemble, donc on va utiliser <strong>Babelify</strong> que va être appelé par Browserify pour transpiler le code grâce à Babel. <br>
+
+                            <img class="fragment" data-fragment-index="1" src="./images/septic.gif" />
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Exemple</h2>
+
+                        <p>
+                            ES2015
+
+                            <pre>
+                                <code class="javascript">const fn = (...args) => {
+    console.log(...args);
+};</code>
+                            </pre>
+
+                            ES5
+
+                            <pre>
+                                <code class="javascript">var fn = function fn() {
+    var _console;
+
+    (_console = console).log.apply(_console, arguments);
+};</code>
+                            </pre>
+                        </p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Faire approuver sa syntaxe</h2>
+                    </section>
+
+                    <section>
+                        <h2>Faire approuver sa syntaxe</h2>
+
+                        <p>
+                            <strong>ESLint</strong> nous permet de valider notre code source. Il permet d'harmoniser notre code source et de réaliser un code de <i>qualité</i> !
+                        </p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Gulp &amp; Browserify</h2>
+                    </section>
+
+                    <section>
+                        <h2>Gulp &amp; Browserify</h2>
+
+                        <p>
+                            Browserify est souvent intégré directement dans le projet comme <strong>Webpack</strong>. Nous on utilise <strong>Gulp</strong> parce que c'est un véritable orchestrateur de tâches.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Watchify</h2>
+
+                        <p>
+                            <i>gulp-watch</i> est caduc. <strong>Browerify</strong> consomme beaucoup de mémoire pour résoudre toutes les dépendances. Pour résoudre ce problème, il existe <i>watchify</i> qui stocke les fichiers en mémoire et ne recompile que le fichier qui vient de changer. Son intégration avec <strong>gulp</strong> donc <a href="https://www.baptiste-donaux.fr/gulp-browserify-watchify/" target="_blank">je l'ai fait pour vous</a>.
+                        </p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Compilation des fichiers non CommonJS</h2>
+                    </section>
+
+                    <section>
+                        <h2>Compilation des fichiers non CommonJS</h2>
+
+                        <p>
+                            Le problème c'est lorsqu'on veut utiliser des dépendances qui ne sont pas faites pour Browserify, ou qui ne sont peut-être même pas de <strong>NPM</strong>.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Une dépendance pas sur npmjs.org ?</h2>
+                        
+                        <p>
+                            Dans ce cas, vous avez toujours <strong>Bower</strong>.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Une dépendance non CommonJS</h2>
+                        
+                        <p>
+                            Le project <strong>browserify-shim</strong> permet justement de compiler des fichiers non standart.
+                            <br><br>
+                            Et parfois, ça sauve la vie !
+                        </p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Surprise</h2>
+                        <img src="./images/surprise.gif">
+                    </section>
+
+                    <section>
+                        <p>
+                            <ul>
+                                <li class="fragment" data-fragment-index="1">Browserify c'est tellement simple</li>
+                                <li class="fragment" data-fragment-index="2">Et puis j'avais un peu de temps...</li>
+                            </ul>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Wanadev !</h2>
+
+                        <p>
+                            Entièrement compilé avec Browserify !
+                            <br><br>
+                            Et un code qui ne ne lève plus d'erreur dans <strong>ESLint</strong>.
+                            <br>
+                            <img src="./images/eslint.png">
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Mais bon ça c'était pas trop compliqué</h2>
+                        <h3 class="fragment" data-fragment-index="1">... et ça manquait de fun !</h3>
+                    </section>
+
+                    <section>
+                        <h2>Wanadev ! <span class="fragment" data-fragment-index="1">🤔</span></h2>
+                    </section>
+
+                    <section>
+                        <h2>Wanadev &amp; React</h2>
+
+                        <p>
+                            Implémentation du compteur tasse à café avec React !
+                        </p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Merci !</h2>
+                    </section>
+                </section>
+            </div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+
+        <script>
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/math/math.js', async: true },
+                    { src: 'plugin/notes/notes.js', async: true },
+                    // { src: 'plugin/remotes/remotes.js', async: true },
+                    { src: 'plugin/zoom-js/zoom.js', async: true },
+                    { src: 'socket.io/socket.io.js', async: true },
+                    { src: 'plugin/notes-server/client.js', async: true }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
